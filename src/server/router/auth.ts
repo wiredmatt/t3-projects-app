@@ -19,4 +19,13 @@ export const authRouter = createRouter()
     async resolve({ ctx }) {
       return "You are logged in and can see this secret message!";
     },
+  })
+  .query("me", {
+    async resolve({ ctx }) {
+      return ctx.prisma.user.findUnique({
+        where: {
+          id: ctx.session?.user?.id,
+        },
+      });
+    },
   });
