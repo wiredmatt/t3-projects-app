@@ -20,11 +20,11 @@ const Search: FC<IProps> = ({}) => {
   useEffect(() => {
     setBaseURL(
       (window.location.href.replace(/^https?:\/\//, "").split("/")[0] || "") +
-        "/"
+        "/user/"
     );
   }, []);
 
-  const handleSearch = () => router.push("/" + userToSearch);
+  const handleSearch = () => router.push("/user/" + userToSearch);
 
   console.log(baseUrl);
 

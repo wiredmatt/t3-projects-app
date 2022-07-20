@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
       <main className="container mx-auto lg:flex lg:flex-col items-center justify-center h-screen p-4">
         <h1 className="lg:py-12 text-3xl md:text-[4rem] lg:text-5xl leading-normal font-extrabold text-gray-700 text-center">
-          Personal <span className="text-purple-300">projects</span> App
+          Personal <span className="text-purple-300">Projects</span> App
         </h1>
 
         <Search />

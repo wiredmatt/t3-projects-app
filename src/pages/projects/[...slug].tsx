@@ -6,7 +6,7 @@ import { trpc } from "../../utils/trpc";
 const Slug: FC = () => {
   const { query } = useRouter();
 
-  const q = (query.slug as string[]).join("/");
+  const q = ((query.slug as string[]) || []).join("/");
 
   const projectQuery = trpc.useQuery([
     "projects.getBySlug",
