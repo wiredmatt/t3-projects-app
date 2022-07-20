@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 import { FC } from "react";
 
-interface IProps {}
-
-const Slug: FC<IProps> = ({}) => {
+const Slug: FC = () => {
   const { query } = useRouter();
 
   return (
