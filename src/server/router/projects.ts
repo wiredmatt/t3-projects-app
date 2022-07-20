@@ -8,16 +8,41 @@ export const projectsRouter = createRouter()
     },
   })
   .query("getByUser", {
-    input: z.object({
-      userId: z.string().cuid(),
-      take: z.number().optional().default(6),
-    }),
+    input: z
+      .object({
+        userId: z.string().cuid(),
+        name: z.string().cuid(),
+        take: z.number().optional().default(6),
+      })
+      .partial()
+      .refine(
+        (data) => !!data.userId || !!data.name,
+        "Either name or userId should be filled in."
+      ),
     async resolve({ ctx, input }) {
       return await ctx.prisma.project.findMany({
         where: {
-          userId: input.userId,
+          user: input.userId
+            ? {
+                id: input.userId,
+              }
+            : {
+                name: input.name,
+              },
         },
         take: input.take,
+      });
+    },
+  })
+  .query("getBySlug", {
+    input: z.object({
+      slug: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.project.findUnique({
+        where: {
+          slug: input.slug,
+        },
       });
     },
   })
@@ -36,7 +61,7 @@ export const projectsRouter = createRouter()
           ...input,
           shortDescription: input.fullDescription.slice(0, 50),
           userId: ctx.session!.user!.id!,
-          slug: input.slug.replace(/\W/g, "-"),
+          slug: ctx.session?.user?.name + "/" + input.slug.replace(/\W/g, "-"),
         },
       });
     },

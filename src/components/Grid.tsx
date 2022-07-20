@@ -14,7 +14,7 @@ const Grid: FC<IProps> = ({ children, cols, rows }) => {
         cols && cols >= 2
           ? "justify-start items-start"
           : '"justify-center items-center"'
-      }`}
+      } w-full h-full`}
     >
       {children}
     </div>

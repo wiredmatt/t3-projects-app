@@ -1,11 +1,8 @@
 import { Project } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
 
 const ProjectCard: FC<Project> = (project) => {
-  const { data: session } = useSession();
-
   return (
     <section className="flex flex-col justify-center p-6 duration-500 border-2 border-gray-500 rounded shadow-xl motion-safe:hover:scale-105">
       <h2 className="text-lg text-gray-700">{project.title}</h2>
@@ -23,7 +20,7 @@ const ProjectCard: FC<Project> = (project) => {
         >
           View on Github
         </a>
-        <Link href={`/${session?.user?.name}/projects/${project.slug}`}>
+        <Link href={`/projects/${project.slug}`}>
           <a
             className="mt-3 text-sm underline text-violet-500 decoration-dotted underline-offset-2"
             target="_blank"

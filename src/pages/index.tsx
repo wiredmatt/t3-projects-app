@@ -7,12 +7,7 @@ import UserCard from "../components/UserCard";
 
 import Link from "next/link";
 import { MdNoteAdd } from "react-icons/md";
-
-type TechnologyCardProps = {
-  name: string;
-  description: string;
-  documentation: string;
-};
+import Search from "../components/Search";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -30,10 +25,17 @@ const Home: NextPage = () => {
           Personal <span className="text-purple-300">projects</span> App
         </h1>
 
+        <Search />
+
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full pb-4">
           {session ? (
             <div className="flex flex-col lg:flex-row w-full h-full space-y-8 lg:space-y-0">
-              <UserCard {...session} />
+              <UserCard
+                id={session.user?.id}
+                image={session.user?.image}
+                name={session.user?.name || "anonymous"}
+                email={session.user?.email}
+              />
 
               <ProjectsList userId={session.user!.id!} />
 
