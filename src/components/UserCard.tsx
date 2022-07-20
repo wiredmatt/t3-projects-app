@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { signOut, useSession } from "next-auth/react";
 import { FC } from "react";
+import hideEmail from "../utils/hideEmail";
 
 const UserCard: FC<Partial<User>> = (user) => {
   const { data: session } = useSession();
@@ -23,7 +24,7 @@ const UserCard: FC<Partial<User>> = (user) => {
       </div>
       <div className="text-center mt-2">
         <h2 className="font-semibold">{user?.name}</h2>
-        <p className="text-gray-500">{user?.email}</p>
+        <p className="text-gray-500">{hideEmail(user?.email || "")}</p>
       </div>
       <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around">
         <li className="flex flex-col items-center justify-around">
