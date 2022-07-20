@@ -8,9 +8,13 @@ interface IProps extends PropsWithChildren {
 const Grid: FC<IProps> = ({ children, cols, rows }) => {
   return (
     <div
-      className={`grid ${cols && "grid-cols-" + cols} ${
-        rows && "grid-rows-" + rows
-      } gap-4 items-center justify-center`}
+      className={`grid grid-cols-1 ${
+        (cols && "md:grid-cols-" + cols) || "md:grid-cols-2"
+      } ${rows && "grid-rows-" + rows} gap-4 ${
+        cols && cols >= 2
+          ? "justify-start items-start"
+          : '"justify-center items-center"'
+      }`}
     >
       {children}
     </div>

@@ -11,14 +11,14 @@ datasource db {
 }
 
 model Project {
-    id               String @id @default(cuid())
+    id               String  @id @default(cuid())
     title            String
     shortDescription String
     fullDescription  String
-    githubUrl        String
+    externalUrl      String?
     slug             String
-    logo             String
-    coverImage       String
+    logo             String?
+    coverImage       String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now())
@@ -34,8 +34,8 @@ model Log {
     title String
     slug  String
 
-    projectId String
-    project   Project @relation(fields: [projectId], references: [id])
+    gameId  String
+    project Project @relation(fields: [gameId], references: [id])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now())

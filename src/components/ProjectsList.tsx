@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { trpc } from "../utils/trpc";
 import Grid from "./Grid";
-import ProjectCard from "./ProjectCard";
+import GameCard from "./ProjectCard";
 
 interface IProps {
   userId: string;
@@ -9,7 +9,7 @@ interface IProps {
 
 const ProjectsList: FC<IProps> = ({ userId }) => {
   const projects = trpc.useQuery([
-    "project.getByUser",
+    "projects.getByUser",
     {
       userId,
       take: 6,
@@ -19,11 +19,17 @@ const ProjectsList: FC<IProps> = ({ userId }) => {
   const user = trpc.useQuery(["auth.me"]);
 
   return (
-    <div className="w-full h-full pt-6 text-2xl text-blue-500 px-4">
+    <div
+      className={`w-full h-full text-2xl text-blue-500 px-4 flex ${
+        projects?.data && projects?.data?.length > 1
+          ? "justify-start items-items"
+          : "justify-center items-center"
+      }`}
+    >
       {projects.data && projects.data.length ? (
-        <Grid cols={2}>
+        <Grid cols={projects.data.length > 1 ? 2 : 1}>
           {projects.data.map((p) => (
-            <ProjectCard {...p} key={p.id} />
+            <GameCard {...p} key={p.id} />
           ))}
         </Grid>
       ) : (

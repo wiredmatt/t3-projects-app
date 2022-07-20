@@ -5,6 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 import ProjectsList from "../components/ProjectsList";
 import UserCard from "../components/UserCard";
 
+import Link from "next/link";
 import { MdNoteAdd } from "react-icons/md";
 
 type TechnologyCardProps = {
@@ -26,22 +27,21 @@ const Home: NextPage = () => {
 
       <main className="container mx-auto lg:flex lg:flex-col items-center justify-center h-screen p-4">
         <h1 className="lg:py-12 text-3xl md:text-[4rem] lg:text-5xl leading-normal font-extrabold text-gray-700 text-center">
-          Personal <span className="text-purple-300">Projects</span> App
+          Personal <span className="text-purple-300">projects</span> App
         </h1>
 
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full pb-4">
           {session ? (
-            <div className="flex flex-col lg:flex-row w-full h-full">
+            <div className="flex flex-col lg:flex-row w-full h-full space-y-8 lg:space-y-0">
               <UserCard {...session} />
-              <div className="py-4 lg:py-0 w-full h-full">
-                <ProjectsList userId={session.user!.id!} />
-              </div>
-              <a
-                href="/projects/new"
-                className="border border-gray-500 h-full w-full md:w-96 md:h-64 lg:w-1/2 lg:h-full self-center text-white px-3 py-3 rounded-md bg-gray-100 transition hover:bg-gray-300 focus:bg-gray-200 active:bg-gray-300 flex justify-center items-center"
-              >
-                <MdNoteAdd size={128} color="black" />
-              </a>
+
+              <ProjectsList userId={session.user!.id!} />
+
+              <Link href="/projects/new">
+                <a className="border border-gray-500 h-full w-full md:w-96 md:h-64 lg:w-1/2 lg:h-full self-center text-white px-3 py-3 rounded-md bg-gray-100 transition hover:bg-gray-300 focus:bg-gray-200 active:bg-gray-300 flex justify-center items-center">
+                  <MdNoteAdd size={128} color="black" />
+                </a>
+              </Link>
             </div>
           ) : (
             <button
@@ -54,23 +54,6 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
-
-const LogCard = ({ name, description, documentation }: TechnologyCardProps) => {
-  return (
-    <section className="flex flex-col justify-center p-6 duration-500 border-2 border-gray-500 rounded shadow-xl motion-safe:hover:scale-105">
-      <h2 className="text-lg text-gray-700">{name}</h2>
-      <p className="text-sm text-gray-600">{description}</p>
-      <a
-        className="mt-3 text-sm underline text-violet-500 decoration-dotted underline-offset-2"
-        href={documentation}
-        target="_blank"
-        rel="noreferrer"
-      >
-        Documentation
-      </a>
-    </section>
   );
 };
 

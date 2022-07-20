@@ -3,7 +3,7 @@ import { signOut } from "next-auth/react";
 import { FC } from "react";
 
 const UserCard: FC<Session> = ({ user }) => (
-  <div className="min-w-fit mx-auto bg-white shadow-xl rounded-lg text-gray-900">
+  <div className="min-w-fit md:w-full lg:w-fit mx-auto bg-white shadow-xl rounded-lg text-gray-900">
     <div className="rounded-t-lg h-32 overflow-hidden">
       <img
         className="object-cover object-top w-full"
